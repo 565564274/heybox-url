@@ -1,9 +1,11 @@
-import { checksum } from '../utils/checksum';
-import { md5 } from '../utils/hash';
+// import { checksum } from '../utils/checksum';
+const  { checksum }  = require('../utils/checksum.js');
+// import { md5 } from '../utils/hash';
+const  { md5 }  = require('../utils/hash.js');
 
 const dict = 'JKMNPQRTX1234OABCDFG56789H';
 
-export const calculate = (url, timestamp = 0, nonce = '') => {
+const calculate = (url, timestamp = 0, nonce = '') => {
   timestamp ||= (Date.now() / 1000) >> 0;
   nonce ||= md5(Math.random().toString()).toString('hex').toUpperCase();
 
@@ -44,3 +46,7 @@ export const calculate = (url, timestamp = 0, nonce = '') => {
 
   return `hkey=${key}${suffix}&_time=${timestamp}&nonce=${nonce}`;
 };
+
+module.exports = { calculate };
+
+

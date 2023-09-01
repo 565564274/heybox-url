@@ -1,6 +1,9 @@
-import struct from 'python-struct';
-import { sha1HMAC } from '../utils/hash';
-import { checksum } from '../utils/checksum';
+// import struct from 'python-struct';
+const struct = require('python-struct');
+// import { sha1HMAC } from '../utils/hash';
+const  { sha1HMAC }  = require('../utils/hash.js');
+// import { checksum } from '../utils/checksum';
+const { checksum } = require('../utils/checksum.js');
 
 const nonceDict =
   '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -20,7 +23,7 @@ const calculateDigest = (url, timestamp) => {
   return sha1HMAC(secret, timestamp);
 };
 
-export const calculate = (url, timestamp = 0, nonce = '') => {
+const calculate = (url, timestamp = 0, nonce = '') => {
   timestamp ||= (Date.now() / 1000) >> 0;
   nonce ||= randomNonce();
 
@@ -60,3 +63,7 @@ export const calculate = (url, timestamp = 0, nonce = '') => {
 
   return `hkey=${key}${suffix}&_time=${timestamp}&nonce=${nonce}`;
 };
+
+module.exports = { calculate };
+
+

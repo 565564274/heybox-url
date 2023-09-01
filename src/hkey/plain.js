@@ -1,13 +1,16 @@
-import struct from 'python-struct';
-import { sha1HMAC } from '../utils/hash';
-import { checksum } from '../utils/checksum';
+// import struct from 'python-struct';
+const struct = require('python-struct');
+// import { sha1HMAC } from '../utils/hash';
+const  { sha1HMAC }  = require('../utils/hash.js');
+// import { checksum } from '../utils/checksum';
+const { checksum } = require('../utils/checksum.js');
 
 const calculateDigest = (url, timestamp) => {
   const secret = Buffer.from(url).toString('base64');
   return sha1HMAC(secret, timestamp);
 };
 
-export const calculate = (url, timestamp = 0) => {
+const calculate = (url, timestamp = 0) => {
   timestamp ||= (Date.now() / 1000) >> 0;
 
   const { pathname } = new URL(url);
@@ -45,3 +48,7 @@ export const calculate = (url, timestamp = 0) => {
 
   return `hkey=${key}${suffix}&_time=${timestamp}`;
 };
+
+module.exports = { calculate };
+
+
