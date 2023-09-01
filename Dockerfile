@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM registry.cn-chengdu.aliyuncs.com/ez4leon/node:1.0
 MAINTAINER 565564274@qq.com
 
 COPY ./ /heybox-url
